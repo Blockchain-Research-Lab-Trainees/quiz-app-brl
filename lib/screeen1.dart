@@ -31,6 +31,7 @@ class SplashScreen extends StatelessWidget {
           OutlinedButton.icon(
             onPressed: () {
              Navigator.push(context, MaterialPageRoute(builder: (context) => const Questions()));
+             
             },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color.fromARGB(255, 11, 11, 11),
