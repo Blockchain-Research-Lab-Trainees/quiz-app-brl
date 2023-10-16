@@ -3,7 +3,7 @@ import 'package:quiz_app/game_screen.dart';
 //import 'package:quiz_app/game_screen.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  const SplashScreen(void Function() switchScreen, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class SplashScreen extends StatelessWidget {
           const SizedBox(height: 30),
           OutlinedButton.icon(
             onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context) => const GameScreem()));
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const Questions()));
             },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color.fromARGB(255, 11, 11, 11),
