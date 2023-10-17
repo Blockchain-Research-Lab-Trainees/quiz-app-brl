@@ -4,7 +4,11 @@ import 'package:quiz_app/data/dummy_question.dart';
 //import 'package:quiz_app/models/quiz_questions.dart';
 
 class Questions extends StatefulWidget {
-  const Questions({Key? key}) : super(key: key);
+  const Questions({super.key,
+    required this.onSelectAnswer,});
+
+
+    final void Function(String answer) onSelectAnswer;
 
   @override
 
@@ -17,7 +21,8 @@ class _QuestionsState extends State<Questions> {
 
   var currentQuestionIndex = 0;
 
-  void answerQuestion() {
+  void answerQuestion( String selectedAnswer) {
+     widget.onSelectAnswer(selectedAnswer);
     setState(() {
       currentQuestionIndex = currentQuestionIndex + 1;
     });
@@ -52,7 +57,7 @@ class _QuestionsState extends State<Questions> {
                   Text(currentQuestion.text,  style: GoogleFonts.lato(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                   const SizedBox(height: 20),
                   ...currentQuestion.getShuffledAnswers()
-                      .map((answer) => Answer(answertext: answer, onTap: answerQuestion))
+                      .map((answer) => Answer(answertext: answer, onTap: () => answerQuestion(answer),))  
                       .toList(),
                   // Answer(answertext: currentQuestion.answers[0], onTap: () {}),
                  
