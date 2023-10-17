@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/dummy_question.dart';
 //import 'package:quiz_app/models/quiz_questions.dart';
 
@@ -13,9 +14,18 @@ class Questions extends StatefulWidget {
 }
 
 class _QuestionsState extends State<Questions> {
+
+  var currentQuestionIndex = 0;
+
+  void answerQuestion() {
+    setState(() {
+      currentQuestionIndex = currentQuestionIndex + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentQuestion = questions[0];
+    final currentQuestion = questions[currentQuestionIndex];
     return Scaffold(
       body: Center(
         child: DecoratedBox(
@@ -33,16 +43,21 @@ class _QuestionsState extends State<Questions> {
           ),
           child: SizedBox(
             width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(currentQuestion.text,  style: const TextStyle(fontSize: 24, color: Colors.white)),
-                const SizedBox(height: 20),
-                Answer(answertext: currentQuestion.answers[0], onTap: () {}),
-                Answer(answertext: currentQuestion.answers[1], onTap: () {}),
-                Answer(answertext: currentQuestion.answers[2], onTap: () {}),
-                Answer(answertext: currentQuestion.answers[3], onTap: () {}),
-              ],
+            child: Container(
+              margin: const EdgeInsets.all(40.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(currentQuestion.text,  style: GoogleFonts.lato(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                  const SizedBox(height: 20),
+                  ...currentQuestion.getShuffledAnswers()
+                      .map((answer) => Answer(answertext: answer, onTap: answerQuestion))
+                      .toList(),
+                  // Answer(answertext: currentQuestion.answers[0], onTap: () {}),
+                 
+                ],
+              ),
             ),
           ),
         ),
@@ -66,14 +81,15 @@ class Answer extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, backgroundColor: Color.fromARGB(255, 1, 21, 16),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 70,
-          vertical: 12,
-        ),
+        padding: const EdgeInsets.all(12),
+        foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(255, 1, 21, 16),
+        // padding: const EdgeInsets.symmetric(
+        //   // horizontal: 70,
+        //   vertical: ,
+        //  ),
         shape: const StadiumBorder(),
       ),
-      child: Text(answertext),
+      child: Text(answertext , textAlign: TextAlign.center,),
     );
   }
 }

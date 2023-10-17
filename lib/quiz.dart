@@ -12,6 +12,8 @@ class QuizApp extends StatefulWidget {
 class _QuizAppState extends State<QuizApp> {
   var zindascreen = 'start-screen';
 
+    final List<String> selectedAnswers = [];
+
   void switchScreen() {
     setState(() {
       zindascreen = 'questions-screen';
@@ -25,6 +27,8 @@ class _QuizAppState extends State<QuizApp> {
     if (zindascreen == 'questions-screen') {
       screenWidget = const Questions();
     }
+
+    
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
